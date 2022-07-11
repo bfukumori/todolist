@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { Header } from "./Header";
 import { AddTaskInput } from "./AddTaskInput";
 import { TaskList } from "./TaskList";
@@ -11,9 +11,28 @@ export type Task = {
   isCompleted: boolean;
 };
 
+const initialState: Task[] = []
+function reducer(state: Task[], action: any) {
+switch (action.type) {
+  case "add":
+    return [...state, action.payload.task]
+  case "delete":
+    return state.filter((task) => task.id !== action.payload.id)
+  case "complete":
+    return state.map(task=>{
+      if (task.id  ===  action.payload.id) {
+        return {...task, isCompleted: !task.isCompleted}
+      }
+      return task
+    })
+  default:
+    return state;
+}
+}
+
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
+  const [state, dispatch] = useReducer(reducer,initialState)
 
   function addNewTask() {
     const task = {
@@ -21,21 +40,16 @@ function App() {
       content: newTask,
       isCompleted: false,
     };
-    setTasks([...tasks, task]);
+    dispatch({type: "add", payload: {task}});
     setNewTask("");
   }
 
   function deleteTask(id: string) {
-    const arrayWithoutDeletedTask = tasks.filter((task) => task.id !== id);
-    setTasks(arrayWithoutDeletedTask);
+    dispatch({type: "delete", payload: {id}});
   }
 
   function completeTask(id: string) {
-    const task = tasks.find((task) => task.id === id);
-    if (task) {
-      task.isCompleted = !task.isCompleted;
-      setTasks([...tasks]);
-    }
+    dispatch({type: "complete", payload:{id}})
   }
 
   return (
@@ -51,7 +65,7 @@ function App() {
         </div>
         <div className={styles.taskList}>
           <TaskList
-            tasks={tasks}
+            tasks={state}
             onDeleteTask={deleteTask}
             onCompleteTask={completeTask}
           />

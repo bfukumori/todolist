@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Task } from "./App";
 import clipboard from "./assets/clipboard.svg";
 import { TaskItem } from "./TaskItem";
@@ -15,13 +14,9 @@ export function TaskList({
   onDeleteTask,
   onCompleteTask,
 }: TaskListProps) {
-  const [completedTasks, setCompletedTasks] = useState(0);
-  useEffect(() => {
-    const completedTasksLength = tasks.filter(
-      (task) => task.isCompleted
-    ).length;
-    setCompletedTasks(completedTasksLength);
-  }, [tasks]);
+  const completedTasks= tasks.filter(
+        (task) => task.isCompleted
+      ).length;
 
   return (
     <>
