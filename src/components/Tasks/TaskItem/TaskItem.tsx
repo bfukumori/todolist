@@ -2,25 +2,23 @@ import { Trash } from "phosphor-react";
 import styles from "./TaskItem.module.css";
 import checkbox from "../../../assets/check.svg";
 import checked from "../../../assets/checked.svg";
-import { Task } from "../../../App";
+import { useContext } from "react";
+import { TaskContext } from "../../../contexts/TaskContext";
+import { Task } from "../../../types/Task";
 
 interface TaskItemProps {
   task: Task;
-  onDeleteTask: (id: string) => void;
-  onCompleteTask: (id: string) => void;
 }
 
-export function TaskItem({
-  task,
-  onDeleteTask,
-  onCompleteTask,
-}: TaskItemProps) {
+export function TaskItem({ task }: TaskItemProps) {
+  const { deleteTask, completeTask } = useContext(TaskContext);
+
   function handleDeleteTask() {
-    onDeleteTask(task.id);
+    deleteTask(task.id);
   }
 
   function handleCompleteTask() {
-    onCompleteTask(task.id);
+    completeTask(task.id);
   }
   return (
     <>

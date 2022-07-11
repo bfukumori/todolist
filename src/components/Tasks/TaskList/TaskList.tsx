@@ -1,22 +1,12 @@
-import { Task } from "../../../App";
+import { useContext } from "react";
 import clipboard from "../../../assets/clipboard.svg";
+import { TaskContext } from "../../../contexts/TaskContext";
 import { TaskItem } from "../TaskItem/TaskItem";
 import styles from "./TaskList.module.css";
 
-interface TaskListProps {
-  tasks: Task[];
-  onDeleteTask: (id: string) => void;
-  onCompleteTask: (id: string) => void;
-}
-
-export function TaskList({
-  tasks,
-  onDeleteTask,
-  onCompleteTask,
-}: TaskListProps) {
-  const completedTasks= tasks.filter(
-        (task) => task.isCompleted
-      ).length;
+export function TaskList() {
+  const { tasks } = useContext(TaskContext);
+  const completedTasks = tasks.filter((task) => task.isCompleted).length;
 
   return (
     <>
@@ -43,14 +33,7 @@ export function TaskList({
             <span>Crie tarefas e organize seus itens a fazer</span>
           </div>
         ) : (
-          tasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onDeleteTask={onDeleteTask}
-              onCompleteTask={onCompleteTask}
-            />
-          ))
+          tasks.map((task) => <TaskItem key={task.id} task={task} />)
         )}
       </section>
     </>

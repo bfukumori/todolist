@@ -1,19 +1,19 @@
-import { Task } from "../../types/Task"
+import { Task } from "../../types/Task";
 
-export function taskReducer(state: Task[], action: any) {
+export function taskReducer(tasks: Task[], action: any) {
   switch (action.type) {
     case "add":
-      return [...state, action.payload.task]
+      return [...tasks, action.payload.task];
     case "delete":
-      return state.filter((task) => task.id !== action.payload.id)
+      return tasks.filter((task) => task.id !== action.payload.id);
     case "complete":
-      return state.map(task=>{
-        if (task.id  ===  action.payload.id) {
-          return {...task, isCompleted: !task.isCompleted}
+      return tasks.map((task) => {
+        if (task.id === action.payload.id) {
+          return { ...task, isCompleted: !task.isCompleted };
         }
-        return task
-      })
+        return task;
+      });
     default:
-      return state;
+      return tasks;
   }
-  }
+}

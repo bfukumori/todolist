@@ -1,23 +1,10 @@
 import { PlusCircle } from "phosphor-react";
+import { useContext } from "react";
+import { TaskContext } from "../../../contexts/TaskContext";
 import styles from "./AddTaskInput.module.css";
 
-interface AddTaskInputProps {
-  onAddNewTask: () => void;
-  newTask: string;
-  setNewTask: (value: string) => void;
-}
-
-export function AddTaskInput({
-  onAddNewTask,
-  newTask,
-  setNewTask,
-}: AddTaskInputProps) {
-  function handleAddNewTask() {
-    if (newTask.trim().length !== 0) {
-      onAddNewTask();
-    }
-  }
-
+export function AddTaskInput() {
+  const { newTask, handleNewTask, addNewTask } = useContext(TaskContext);
   return (
     <div className={styles.wrapper}>
       <input
@@ -25,13 +12,9 @@ export function AddTaskInput({
         type="text"
         placeholder="Adicione uma nova tarefa"
         value={newTask}
-        onChange={(event) => setNewTask(event.target.value)}
+        onChange={(event) => handleNewTask(event.target.value)}
       />
-      <button
-        type="submit"
-        className={styles.button}
-        onClick={handleAddNewTask}
-      >
+      <button type="submit" className={styles.button} onClick={addNewTask}>
         <span>Criar</span>
         <PlusCircle size="1rem" weight="bold" />
       </button>
