@@ -1,6 +1,6 @@
-import { Task } from "./App";
-import clipboard from "./assets/clipboard.svg";
-import { TaskItem } from "./TaskItem";
+import { Task } from "../../../App";
+import clipboard from "../../../assets/clipboard.svg";
+import { TaskItem } from "../TaskItem/TaskItem";
 import styles from "./TaskList.module.css";
 
 interface TaskListProps {

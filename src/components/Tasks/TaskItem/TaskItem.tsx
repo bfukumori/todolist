@@ -1,8 +1,8 @@
 import { Trash } from "phosphor-react";
 import styles from "./TaskItem.module.css";
-import checkbox from "./assets/check.svg";
-import checked from "./assets/checked.svg";
-import { Task } from "./App";
+import checkbox from "../../../assets/check.svg";
+import checked from "../../../assets/checked.svg";
+import { Task } from "../../../App";
 
 interface TaskItemProps {
   task: Task;
