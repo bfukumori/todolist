@@ -80,7 +80,7 @@ $ npm run dev
 
 #### Mobile version
 
-https://github.com/bfukumori/ignite-reactnative-todo
+https://github.com/bfukumori/native-todolist
 
 
 ---
